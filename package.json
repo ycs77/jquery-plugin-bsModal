@@ -1,0 +1,37 @@
+{
+  "name": "jquery-plugin-bsmodal",
+  "version": "1.0.0-rc.1",
+  "description": "bsModal is jquery plugin, generate bootstrap 4 modal, And cropper image modal.",
+  "main": "dist/bsmodal.js",
+  "scripts": {
+    "build": "cross-env NODE_ENV=production rollup -c",
+    "compress": "uglifyjs dist/bsmodal.js -o dist/bsmodal.min.js -c -m --comments /^!/",
+    "dev": "cross-env NODE_ENV=development rollup -c",
+    "release": "npm run build && npm run compress",
+    "watch": "rollup -c -w"
+  },
+  "author": "Chen-shin, Yang",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yangchenshin77/bsModal.git"
+  },
+  "homepage": "https://github.com/yangchenshin77/bsModal",
+  "bugs": {
+    "url": "https://github.com/yangchenshin77/bsModal/issues"
+  },
+  "keywords": [
+    "jquery",
+    "jquery plugin",
+    "bootstrap",
+    "modal",
+    "cropper"
+  ],
+  "devDependencies": {
+    "change-case": "^3.0.2",
+    "create-banner": "^1.0.0",
+    "cross-env": "^5.2.0",
+    "rollup": "^0.66.6",
+    "uglify-js": "^3.4.9"
+  }
+}
