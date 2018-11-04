@@ -1,3 +1,4 @@
+import babel from 'rollup-plugin-babel'
 import createBanner from 'create-banner'
 import pkg from './package.json'
 
@@ -17,5 +18,10 @@ export default {
     banner,
     file: `dist/${name}.js`,
     format: 'esm'
-  }
+  },
+  plugins: [
+    babel({
+      exclude: 'node_modules/**'
+    })
+  ]
 }

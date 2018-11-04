@@ -288,9 +288,11 @@ Use modal confirm mode, default is true.
 #### src
 
 * Type: `String`
-* Default: `''`
+* Default: `null`
 
 Define the cropper image src.
+
+If there is no setting, it is the upload mode; if set, the image will be cropped.
 
 
 #### imgId
@@ -333,6 +335,29 @@ Define the upload method.
 Define the upload input name.
 
 
+#### uploadConfig
+
+* Type: `Object`
+
+Options:
+
+* allowTypes
+
+    * Type: `Array`
+    * Default: `['image/jpeg', 'image/png']`
+
+    Allow upload mimeType
+
+* maxSize
+
+    * Type: `Number`
+    * Default: `5242880`
+
+    Upload file max size
+
+Define the upload input name.
+
+
 #### success
 
 * Type: `Function`
@@ -363,6 +388,22 @@ If ajax function use axios, input axios instance.
 * Default: `false`
 
 The axios successful return data is res or res.data;
+
+
+#### onUpload
+
+* Type: `Function`
+* Default: `null`
+
+Is "upload" callback.
+
+
+#### onUploadError
+
+* Type: `Function`
+* Default: `null`
+
+Is "uploadError" callback.
 
 
 #### onCropper

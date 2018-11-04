@@ -1,20 +1,24 @@
 /*!
- * bsModal.js v1.0.0-rc.1
+ * bsModal.js v1.0.0-rc.2
  * https://github.com/yangchenshin77/bsModal
  *
  * Copyright 2018 Chen-shin, Yang
  * Released under the MIT license
  *
- * Date: 2018-11-03T08:48:22.976Z
+ * Date: 2018-11-04T09:45:51.061Z
  */
 
-// Uses CommonJS, AMD or browser globals to create a jQuery plugin.
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
+  return typeof obj;
+} : function (obj) {
+  return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+};
 
 (function (factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
     define(['jquery'], factory);
-  } else if (typeof module === 'object' && module.exports) {
+  } else if ((typeof module === 'undefined' ? 'undefined' : _typeof(module)) === 'object' && module.exports) {
     // Node/CommonJS
     module.exports = function (root, jQuery) {
       if (jQuery === undefined) {
@@ -24,8 +28,7 @@
         // if it's defined (how jquery works)
         if (typeof window !== 'undefined') {
           jQuery = require('jquery');
-        }
-        else {
+        } else {
           jQuery = require('jquery')(root);
         }
       }
@@ -36,7 +39,7 @@
     // Browser globals
     factory(jQuery);
   }
-}(function ($) {
+})(function ($) {
 
   // Bootstrap version
   var BOOTSTRAP_VERSION = 4;
@@ -49,8 +52,9 @@
 
   // Bootstrap plugin - Modal
   $.fn.bsModal = function (options) {
+    var _this = this;
 
-    var defaults = {
+    var defaults$$1 = {
 
       // Basic
       id: 'exampleModal',
@@ -81,16 +85,21 @@
       cancelBtnColor: 'secondary',
 
       // Event
-      onOpen: function () { },
-      onClose: function () { },
-      onOk: function () { },
-      onCancel: function () { }
+      onOpen: function onOpen() {
+        return true;
+      },
+      onClose: function onClose() {
+        return true;
+      },
+      onOk: function onOk() {
+        return true;
+      },
+      onCancel: function onCancel() {
+        return true;
+      }
 
-    };
-
-    // Locale
-    var userLang = navigator.language || navigator.userLanguage;
-    var langs = $.extend({
+      // Locale
+    };var langs = $.extend({
       'en': {
         okBtnText: 'Save',
         cancelBtnText: 'Close',
@@ -103,15 +112,15 @@
         confirmOkText: '確定',
         confirmCancelText: '取消'
       }
-    }, defaults.langs);
-    var locale = langs[defaults.lang] || langs[userLang] || langs['en'];
+    }, defaults$$1.langs);
+    var locale = langs[defaults$$1.lang] || langs[navigator.language || navigator.userLanguage] || langs['en'];
     for (var v in locale) {
-      defaults[v] = locale[v];
+      defaults$$1[v] = locale[v];
     }
 
     // Settings
-    var settings = $.extend({}, defaults, options);
-    settings.label = settings.label || (settings.id + 'Label');
+    var settings = $.extend({}, defaults$$1, options);
+    settings.label = settings.label || settings.id + 'Label';
 
     // Confirm mode
     if (settings.confirm) {
@@ -134,83 +143,64 @@
 
     // Create modal
     if (modal === null) {
-      modal = $('<div class="modal" />')
-        .addClass(settings.fade ? 'fade' : '')
-        .attr({
-          id: settings.id,
-          tabindex: '-1',
-          role: 'dialog',
-          'aria-labelledby': settings.label,
-          'data-backdrop': settings.backdrop
-        })
-        .appendTo('body');
+      modal = $('<div class="modal" />').addClass(settings.fade ? 'fade' : '').attr({
+        id: settings.id,
+        tabindex: '-1',
+        role: 'dialog',
+        'aria-labelledby': settings.label,
+        'data-backdrop': settings.backdrop
+      }).appendTo('body');
 
-      var modalDialog = $('<div class="modal-dialog" />')
-        .attr({ role: 'document' })
-        .appendTo(modal);
+      var modalDialog = $('<div class="modal-dialog" />').attr({ role: 'document' }).appendTo(modal);
 
-      var modalContent = $('<div class="modal-content" />')
-        .appendTo(modalDialog);
+      var modalContent = $('<div class="modal-content" />').appendTo(modalDialog);
 
-      var modalHeader = $('<div class="modal-header" />')
-        .appendTo(modalContent);
+      var modalHeader = $('<div class="modal-header" />').appendTo(modalContent);
 
-      $('<h' + settings.titleLavel + ' class="modal-title" />')
-        .attr('id', settings.label)
-        .text(settings.title)
-        .appendTo(modalHeader);
+      $('<h' + settings.titleLavel + ' class="modal-title" />').attr('id', settings.label).text(settings.title).appendTo(modalHeader);
 
       if (settings.body) {
-        var modalBody = $('<div class="modal-body" />')
-          .html(settings.body)
-          .appendTo(modalContent);
+        $('<div class="modal-body" />').html(settings.body).appendTo(modalContent);
       }
 
-      var modalFooter = $('<div class="modal-footer" />')
-        .appendTo(modalContent);
+      var modalFooter = $('<div class="modal-footer" />').appendTo(modalContent);
 
       if (settings.close) {
-        $('<button class="close" type="button" data-dismiss="modal" aria-label="Close" />')
-          .append($('<span aria-hidden="true">&times;</span>'))
-          .appendTo(modalHeader);
+        $('<button class="close" type="button" data-dismiss="modal" aria-label="Close" />').append($('<span aria-hidden="true">&times;</span>')).appendTo(modalHeader);
       }
 
-      var cancelBtn = $('<button type="button" data-dismiss="modal" />')
-        .addClass('btn btn-' + settings.cancelBtnColor)
-        .text(settings.cancelBtnText)
-        .appendTo(modalFooter);
+      var cancelBtn = $('<button type="button" data-dismiss="modal" />').addClass('btn btn-' + settings.cancelBtnColor).text(settings.cancelBtnText).appendTo(modalFooter);
 
-      var okBtn = $('<button type="button" />')
-        .addClass('btn btn-' + settings.okBtnColor)
-        .text(settings.okBtnText)
-        .appendTo(modalFooter);
+      var okBtn = $('<button type="button" />').addClass('btn btn-' + settings.okBtnColor).text(settings.okBtnText).appendTo(modalFooter);
 
       // Event
-      var _open = function () {
-        settings.onOpen.call(this);
+      var _open = function _open() {
+        settings.onOpen.call(_this);
       };
 
-      var _close = function () {
-        settings.onClose.call(this);
+      var _close = function _close() {
+        settings.onClose.call(_this);
       };
 
-      var _ok = function () {
-        if (settings.onOk.call(this) === false) {
+      var _ok = function _ok() {
+        if (settings.onOk.call(_this) === false) {
           return;
         }
         modal.modal('hide');
       };
 
-      var _cancel = function () {
-        settings.onCancel.call(this);
+      var _cancel = function _cancel() {
+        settings.onCancel.call(_this);
       };
 
       modal.on('shown.bs.modal', _open);
       modal.on('hidden.bs.modal', _close);
       okBtn.on('click', _ok);
       cancelBtn.on('click', _cancel);
-
     }
+
+    // Set modal to public
+    this.modal = modal;
 
     // Add this button data-toggle
     this.attr({
@@ -219,13 +209,17 @@
     });
 
     return this;
-
   };
 
   // Bootstrap plugin - Cropper image modal
   $.fn.bsModalCropper = function (options) {
+    var _this2 = this;
 
-    var defaults = {
+    if (typeof Cropper === 'undefined') {
+      throw 'Error: Cropper.js is not found.';
+    }
+
+    var defaults$$1 = {
 
       // Basic
       id: 'exampleModalCropper',
@@ -234,7 +228,7 @@
       confirm: true,
 
       // image src
-      src: '',
+      src: null,
       imgId: 'exampleImage',
 
       // Cropper.js options
@@ -246,44 +240,48 @@
       action: null,
       method: 'post',
       fileName: 'file',
-      success: function () { },
-      error: function () { },
+      uploadConfig: {
+        allowTypes: ['image/jpeg', 'image/png'],
+        maxSize: Math.pow(1024, 2) * 5 // 5M
+      },
+      success: function success() {},
+      error: function error() {},
 
       // Axios
       axios: null,
       axiosOriginalData: false,
 
       // Event
-      onCropper: function () { }
+      onUpload: function onUpload() {
+        return true;
+      },
+      onUploadError: function onUploadError() {
+        return true;
+      },
+      onCropper: function onCropper() {
+        return true;
+      }
 
     };
 
-    var settings = $.extend({}, defaults, options);
+    var settings = $.extend({}, defaults$$1, options);
+    settings.cropper = $.extend({}, defaults$$1.cropper, options.cropper);
+    settings.uploadConfig = $.extend({}, defaults$$1.uploadConfig, options.uploadConfig);
 
-    settings.cropper = $.extend({}, defaults.cropper, options.cropper);
+    /**
+     * @var {*} image Cropper image DOM
+     */
+    var image = $('<img />').attr('id', settings.imgId).css('max-width', '100%');
 
-    if (typeof Cropper === 'undefined') {
-      throw 'Error: Cropper.js is not found.';
-    }
+    /**
+     * @var {*} cropper Cropper object
+     */
+    var cropper = void 0;
 
-    var image = $('<img />')
-      .attr({
-        id: settings.imgId,
-        src: settings.src
-      })
-      .css('max-width', '100%')
-      .get(0);
-
-    var cropper;
-
-    var _cropperImg = function (datURL, blob) {
-      settings.onCropper.call(this, datURL, blob);
-    };
-
-    settings.body = $('<div class="img-container" />').html(image);
+    settings.body = $('<div class="img-container" />').append(image);
 
     settings.onOpen = function () {
-      cropper = new Cropper(image, settings.cropper);
+      cropper = new Cropper(image.get(0), settings.cropper);
     };
 
     settings.onOk = function () {
@@ -296,11 +294,11 @@
         height: settings.maxHeight
       }, function (dataURI) {
 
-        // Event cropper image
-        _cropperImg(dataURI, dataURItoBlob(dataURI));
+        // Cropper image event
+        settings.onCropper.call(_this2, dataURI, dataURItoBlob(dataURI));
 
         if (typeof settings.action === 'string') {
-          // Upload image
+          // Upload image to server
           var blob = dataURItoBlob(dataURI);
           var formData = new FormData();
           formData.append(settings.fileName, blob);
@@ -313,57 +311,132 @@
       cropper.destroy();
     };
 
-    // Call modal
-    this.bsModal(settings);
+    if (settings.src) {
+      image.attr('src', settings.src);
 
-    // Ajax function
-    function ajax(settings, data) {
+      this.bsModal(settings);
+    } else {
+      // Upload image to browser
+
+      /**
+       * @var {object} inputFile Input file DOM
+       */
+      var inputFile = this.children('input[type=file]').get(0);
+
+      inputFile.onchange = function () {
+        if (!inputFile.files.length) {
+          return;
+        }
+
+        /**
+         * @var {File} file Upload file - image
+         */
+        var file = inputFile.files[0];
+
+        if (settings.onUpload.call(_this2) === false) {
+          return;
+        }
+
+        if (settings.uploadConfig.allowTypes) {
+          /**
+           * @var {array} allowTypes
+           */
+          var allowTypes = settings.uploadConfig.allowTypes;
+          if (!allowTypes.some(function (v) {
+            return v === file.type;
+          })) {
+            settings.onUploadError.call(_this2, 'Upload file type is wrong');
+            return;
+          }
+        }
+
+        // Validate image max size
+        if (settings.uploadConfig.maxSize) {
+          /**
+           * @var {number} maxSize
+           */
+          var maxSize = settings.uploadConfig.maxSize;
+          if (file.size > maxSize) {
+            var maxSizeText = void 0;
+            if (maxSize < 1024) {
+              maxSizeText = maxSize + ' B';
+            } else if (maxSize >= Math.pow(1024, 1) && maxSize < Math.pow(1024, 2)) {
+              maxSizeText = Math.floor(maxSize / Math.pow(1024, 1)) + ' KB';
+            } else if (maxSize >= Math.pow(1024, 2) && maxSize < Math.pow(1024, 3)) {
+              maxSizeText = Math.floor(maxSize / Math.pow(1024, 2)) + ' MB';
+            }
+            settings.onUploadError.call(_this2, 'Uploaded file cannot be larger than ' + maxSizeText);
+            return;
+          }
+        }
+
+        blobtoDataURL(file, function (dataURL) {
+          settings.src = dataURL;
+          image.attr('src', settings.src);
+
+          // Call modal
+          _this2.bsModal(settings);
+          _this2.modal.modal('show');
+
+          // Remove this button data-toggle
+          _this2.removeAttr('data-toggle').removeAttr('data-target');
+        });
+      };
+    }
+
+    /**
+     * Ajax function
+     * @param {object} settings
+     * @param {FormData} formData
+     */
+    function ajax(settings, formData) {
       if (settings.axios) {
         // Use axios
         settings.axios({
           url: settings.action,
           method: settings.method,
-          data: data,
+          data: formData,
           headers: {
             'Content-Type': 'multipart/form-data'
           }
         }).then(function (res) {
           settings.success(settings.axiosOriginalData ? res : res.data);
         }).catch(settings.error);
-
       } else if (typeof $.ajax !== 'undefined') {
         // Use jquery ajax
         $.ajax(settings.action, {
           method: settings.method,
-          data: data,
+          data: formData,
           processData: false,
           contentType: false,
           success: settings.success,
           error: settings.error
         });
-
       } else {
         throw 'Error: ajax function is not found, Can\'t upload image.';
       }
     }
 
     return this;
-
   };
 
-  // Get new size image
+  /**
+   * Get new size image
+   * @param {string} dataURI
+   * @param {object} imgConfig
+   * @param {function} callback
+   */
   function makeRatioImgDataURI(dataURI, imgConfig, callback) {
     // Check width and height is exists
-    if (typeof imgConfig.width === 'undefined' &&
-      typeof imgConfig.height === 'undefined') {
+    if (typeof imgConfig.width === 'undefined' && typeof imgConfig.height === 'undefined') {
       if (callback) {
         callback(dataURI);
         return;
       }
     }
 
-    var aspectRatio = function (imgW, imgH, maxW, maxH) {
-      return Math.min((maxW / imgW), (maxH / imgH));
+    var aspectRatio = function aspectRatio(imgW, imgH, maxW, maxH) {
+      return Math.min(maxW / imgW, maxH / imgH);
     };
 
     var newDataURI = '';
@@ -387,9 +460,12 @@
     };
   }
 
-  // DatURI to Blob
+  /**
+   * DatURI to Blob
+   * @param {string} dataURI
+   */
   function dataURItoBlob(dataURI) {
-    var byteString;
+    var byteString = void 0;
     if (dataURI.split(',')[0].indexOf('base64') >= 0) {
       byteString = atob(dataURI.split(',')[1]);
     } else {
@@ -403,4 +479,16 @@
     return new Blob([ia], { type: mimeString });
   }
 
-}));
+  /**
+   * Blob to DataURL
+   * @param {Blob|File} blob 
+   * @param {function} callback 
+   */
+  function blobtoDataURL(blob, callback) {
+    var fr = new FileReader();
+    fr.onload = function (e) {
+      callback(e.target.result);
+    };
+    fr.readAsDataURL(blob);
+  }
+});
