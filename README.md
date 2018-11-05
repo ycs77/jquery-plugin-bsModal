@@ -335,6 +335,14 @@ Define the upload method.
 Define the upload input name.
 
 
+#### data
+
+* Type: `Object`
+* Default: `{}`
+
+Define the upload data.
+
+
 #### uploadConfig
 
 * Type: `Object`

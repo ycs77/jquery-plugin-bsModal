@@ -243,6 +243,7 @@
       action: null,
       method: 'post',
       fileName: 'file',
+      data: {},
       uploadConfig: {
         allowTypes: [
           'image/jpeg',
@@ -303,7 +304,19 @@
           // Upload image to server
           const blob = dataURItoBlob(dataURI)
           const formData = new FormData()
+
+          // Upload file
           formData.append(settings.fileName, blob)
+
+          // Upload data
+          const dataKeys = Object.keys(settings.data)
+          if (dataKeys.length) {
+            dataKeys.forEach(key => {
+              formData.append(key, settings.data[key]);
+            })
+          }
+
+          // Use ajax post to server
           ajax(settings, formData)
         }
       })
