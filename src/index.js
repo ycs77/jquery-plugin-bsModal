@@ -147,7 +147,7 @@
 
       $(`<h${settings.titleLavel} class="modal-title" />`)
         .attr('id', settings.label)
-        .text(settings.title)
+        .html(settings.title)
         .appendTo(modalHeader)
 
       if (settings.body) {
