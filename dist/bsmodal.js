@@ -1,11 +1,11 @@
 /*!
- * bsModal.js v1.0.0-rc.2
+ * bsModal.js v1.0.0
  * https://github.com/yangchenshin77/bsModal
  *
  * Copyright 2018 Chen-shin, Yang
  * Released under the MIT license
  *
- * Date: 2018-11-04T09:45:51.061Z
+ * Date: 2018-11-05T04:04:51.374Z
  */
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
@@ -157,7 +157,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
       var modalHeader = $('<div class="modal-header" />').appendTo(modalContent);
 
-      $('<h' + settings.titleLavel + ' class="modal-title" />').attr('id', settings.label).text(settings.title).appendTo(modalHeader);
+      $('<h' + settings.titleLavel + ' class="modal-title" />').attr('id', settings.label).html(settings.title).appendTo(modalHeader);
 
       if (settings.body) {
         $('<div class="modal-body" />').html(settings.body).appendTo(modalContent);
@@ -240,6 +240,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
       action: null,
       method: 'post',
       fileName: 'file',
+      data: {},
       uploadConfig: {
         allowTypes: ['image/jpeg', 'image/png'],
         maxSize: Math.pow(1024, 2) * 5 // 5M
@@ -301,7 +302,19 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
           // Upload image to server
           var blob = dataURItoBlob(dataURI);
           var formData = new FormData();
+
+          // Upload file
           formData.append(settings.fileName, blob);
+
+          // Upload data
+          var dataKeys = Object.keys(settings.data);
+          if (dataKeys.length) {
+            dataKeys.forEach(function (key) {
+              formData.append(key, settings.data[key]);
+            });
+          }
+
+          // Use ajax post to server
           ajax(settings, formData);
         }
       });
