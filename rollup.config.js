@@ -1,4 +1,5 @@
 import babel from 'rollup-plugin-babel'
+import copy from 'rollup-plugin-copy'
 import createBanner from 'create-banner'
 import pkg from './package.json'
 
@@ -22,6 +23,9 @@ export default {
   plugins: [
     babel({
       exclude: 'node_modules/**'
+    }),
+    copy({
+      'dist/bsmodal.js': 'docs/js/bsmodal.js'
     })
   ]
 }
