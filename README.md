@@ -1,12 +1,12 @@
 # jQuery plugin - Bootstrap Modal
 
-bsModal is jQuery plugin, generate bootstrap 4 modal, And cropper image modal.
+[![npm version](https://badge.fury.io/js/jquery-plugin-bsmodal.svg)](https://badge.fury.io/js/jquery-plugin-bsmodal)
+
+bsModal is jQuery plugin, generate bootstrap 4 modal, And crop image modal.
 
 ## Example
 
-* [bsModal](https://yangchenshin77.github.io/jquery-plugin-bsModal/bsModal.html)
-* [bsModalCropper](https://yangchenshin77.github.io/jquery-plugin-bsModal/bsModalCropper.html)
-* [bsModalUploadImageAndCropper](https://yangchenshin77.github.io/jquery-plugin-bsModal/bsModalUploadImageAndCropper.html)
+https://yangchenshin77.github.io/jquery-plugin-bsModal/
 
 ## Getting started
 
@@ -15,11 +15,11 @@ Must introduce jQuery 3, Bootstrap 4, Cropper.js.
 ### Installation
 
 ```
-npm install jquery-plugin-bsmodal
+$ npm install jquery-plugin-bsmodal
 ```
 or
 ```
-yarn add jquery-plugin-bsmodal
+$ yarn add jquery-plugin-bsmodal
 ```
 
 In browser:
@@ -48,7 +48,7 @@ In browser:
 
 ```js
 // Basic modal
-$('#exampleBtn').bsModal({
+$('#basicBtn').bsModal({
   id: 'bsModal',
   title: 'Title',
   body: 'Modal body text......',
@@ -66,26 +66,21 @@ $('#exampleBtn').bsModal({
   }
 });
 
-// Cropper image modal
-$('#exampleBtn').bsModalCropper({
+// Crop image modal
+$('#cropImgBtn').bsModalCropper({
   id: 'bsModalCropper',
-  title: 'Cropper image',
-  src: '/path/to/example-picture.jpg',
-
-  // On cropper
-  onCropper: function (dataURL) {
-    $('#cropedImage').attr('src', dataURL);
-  },
+  title: 'Crop image',
+  src: 'example-picture.jpg',
 
   // Cropper.js options
   cropper: {
     aspectRatio: 16 / 9
   },
 
-  // Upload image
-  action: '/url',
-  success: function (data) {
-    console.log(data);
+  // On cropper
+  onCropper: function (dataURL) {
+    $('#cropedImageBox').show();
+    $('#cropedImage').attr('src', dataURL);
   }
 });
 ```
@@ -100,7 +95,7 @@ $('#exampleBtn').bsModalCropper({
 * Type: `String`
 * Default: `exampleModal`
 
-Define the modal id.
+**Required**. Define the modal id. **Can't repeat**.
 
 
 #### title
@@ -296,7 +291,7 @@ Use modal confirm mode, default is true.
 * Type: `String`
 * Default: `null`
 
-Define the cropper image src.
+Define the crop image src.
 
 If there is no setting, it is the upload mode; if set, the image will be cropped.
 
@@ -306,7 +301,7 @@ If there is no setting, it is the upload mode; if set, the image will be cropped
 * Type: `String`
 * Default: `exampleImage`
 
-Define the cropper image id.
+Define the crop image id.
 
 
 #### cropper
@@ -315,6 +310,14 @@ Define the cropper image id.
 * Default: `exampleImage`
 
 Define the Cropper.js options.
+
+
+#### maxWidth
+
+* Type: `Number|null`
+* Default: `null`
+
+Define the crop image.
 
 
 #### action

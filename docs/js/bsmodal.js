@@ -1,11 +1,11 @@
 /*!
- * bsModal.js v1.0.1
+ * bsModal.js v1.0.2
  * https://github.com/yangchenshin77/bsModal
  *
  * Copyright 2018 Chen-shin, Yang
  * Released under the MIT license
  *
- * Date: 2018-11-05T04:58:40.434Z
+ * Date: 2018-11-06T05:23:01.180Z
  */
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
@@ -235,6 +235,8 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
       cropper: {
         viewMode: 1
       },
+      maxWidth: null,
+      maxHeight: null,
 
       // Upload
       action: null,
@@ -441,7 +443,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
    */
   function makeRatioImgDataURI(dataURI, imgConfig, callback) {
     // Check width and height is exists
-    if (typeof imgConfig.width === 'undefined' && typeof imgConfig.height === 'undefined') {
+    if (imgConfig.width === null && imgConfig.height === null) {
       if (callback) {
         callback(dataURI);
         return;
