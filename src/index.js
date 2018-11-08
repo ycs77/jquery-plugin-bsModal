@@ -139,6 +139,7 @@
       $(`<h${settings.titleLavel} class="modal-title" />`)
         .attr('id', settings.label)
         .html(settings.title)
+        .css('display', 'inline')
         .appendTo(modalHeader)
 
       if (settings.body) {

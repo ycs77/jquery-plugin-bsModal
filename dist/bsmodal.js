@@ -5,7 +5,7 @@
  * Copyright 2018 Chen-shin, Yang
  * Released under the MIT license
  *
- * Date: 2018-11-08T05:51:56.570Z
+ * Date: 2018-11-08T05:56:21.080Z
  */
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
@@ -148,7 +148,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
       var modalHeader = $('<div class="modal-header" />').appendTo(modalContent);
 
-      $('<h' + settings.titleLavel + ' class="modal-title" />').attr('id', settings.label).html(settings.title).appendTo(modalHeader);
+      $('<h' + settings.titleLavel + ' class="modal-title" />').attr('id', settings.label).html(settings.title).css('display', 'inline').appendTo(modalHeader);
 
       if (settings.body) {
         $('<div class="modal-body" />').html(settings.body).appendTo(modalContent);
