@@ -5,7 +5,7 @@
  * Copyright 2018 Chen-shin, Yang
  * Released under the MIT license
  *
- * Date: 2018-11-06T05:23:01.180Z
+ * Date: 2018-11-08T05:51:56.570Z
  */
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
@@ -40,15 +40,6 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
     factory(jQuery);
   }
 })(function ($) {
-
-  // Bootstrap version
-  var BOOTSTRAP_VERSION = 4;
-  var BOOTSTRAP_CURRENT_VERSION = $.fn.tooltip.Constructor.VERSION;
-
-  // Check bootstrap version
-  if (Number(BOOTSTRAP_CURRENT_VERSION.substr(0, 1)) < BOOTSTRAP_VERSION) {
-    throw 'Bootstrap version is not ' + BOOTSTRAP_VERSION;
-  }
 
   // Bootstrap plugin - Modal
   $.fn.bsModal = function (options) {

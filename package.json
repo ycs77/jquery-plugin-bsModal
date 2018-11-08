@@ -22,7 +22,8 @@
   },
   "keywords": [
     "jquery",
-    "jquery plugin",
+    "plugin",
+    "jquery-plugin",
     "bootstrap",
     "modal",
     "cropper"

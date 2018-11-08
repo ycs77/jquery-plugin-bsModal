@@ -29,15 +29,6 @@
   }
 }($ => {
 
-  // Bootstrap version
-  const BOOTSTRAP_VERSION = 4
-  const BOOTSTRAP_CURRENT_VERSION = $.fn.tooltip.Constructor.VERSION
-
-  // Check bootstrap version
-  if (Number(BOOTSTRAP_CURRENT_VERSION.substr(0, 1)) < BOOTSTRAP_VERSION) {
-    throw `Bootstrap version is not ${BOOTSTRAP_VERSION}`
-  }
-
   // Bootstrap plugin - Modal
   $.fn.bsModal = function (options) {
 
