@@ -6,7 +6,7 @@ bsModal is jQuery plugin, generate bootstrap 4 modal, And crop image modal.
 
 ## Example
 
-https://yangchenshin77.github.io/jquery-plugin-bsModal/
+https://ycs77.github.io/jquery-plugin-bsModal/
 
 ## Getting started
 
