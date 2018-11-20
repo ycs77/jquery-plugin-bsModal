@@ -1,11 +1,11 @@
 /*!
- * bsModal.js v1.0.3
+ * bsModal.js v1.0.4
  * https://github.com/yangchenshin77/bsModal
  *
  * Copyright 2018 Chen-shin, Yang
  * Released under the MIT license
  *
- * Date: 2018-11-08T05:58:14.383Z
+ * Date: 2018-11-20T08:39:54.099Z
  */
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
