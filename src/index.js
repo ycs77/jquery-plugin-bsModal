@@ -342,6 +342,9 @@
          */
         let file = inputFile.files[0]
 
+        // Uploaded clear image
+        inputFile.value = ''
+
         if (settings.onUpload.call(this) === false) {
           return
         }

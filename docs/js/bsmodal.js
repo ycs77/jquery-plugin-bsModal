@@ -1,11 +1,11 @@
 /*!
- * bsModal.js v1.0.4
+ * bsModal.js v1.0.5
  * https://github.com/yangchenshin77/bsModal
  *
  * Copyright 2018 Chen-shin, Yang
  * Released under the MIT license
  *
- * Date: 2018-11-20T08:39:54.099Z
+ * Date: 2018-11-27T13:36:09.826Z
  */
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
@@ -338,6 +338,9 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
          * @var {File} file Upload file - image
          */
         var file = inputFile.files[0];
+
+        // Uploaded clear image
+        inputFile.value = '';
 
         if (settings.onUpload.call(_this2) === false) {
           return;
