@@ -1,6 +1,6 @@
 {
   "name": "jquery-plugin-bsmodal",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "bsModal is jquery plugin, generate bootstrap 4 modal, And cropper image modal.",
   "main": "dist/bsmodal.js",
   "scripts": {
