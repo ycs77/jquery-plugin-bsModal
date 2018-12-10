@@ -85,10 +85,9 @@ $('#cropImgBtn').bsModalCropper({
 });
 ```
 
-## Options
+## bsModal Options
 
-### bsModal
-
+### Property
 
 #### id
 
@@ -138,6 +137,14 @@ Define the modal title id.
 Define the back lang, default is user browser language.
 
 
+#### langs
+
+* Type: `Object`
+* Default: `{}`
+
+Define the texts languages.
+
+
 #### modal
 
 * Type: `String|null`
@@ -178,6 +185,22 @@ Show modal backdrop.
 Use modal confirm mode.
 
 
+#### okBtn
+
+* Type: `Boolean`
+* Default: `true`
+
+Can show `okBtn`.
+
+
+#### cancelBtn
+
+* Type: `Boolean`
+* Default: `true`
+
+Can show `cancelBtn`.
+
+
 #### okBtnText
 
 * Type: `String`
@@ -210,14 +233,6 @@ Define the confirm mode modal ok button text.
 Define the confirm mode modal cancel button text.
 
 
-#### langs
-
-* Type: `Object`
-* Default: `{}`
-
-Define the texts languages.
-
-
 #### okBtnColor
 
 * Type: `String`
@@ -233,6 +248,8 @@ Define the modal ok button color, use bootstrap color.
 
 Define the modal cancel button color, use bootstrap color.
 
+
+### Callback
 
 #### onOpen
 
@@ -266,7 +283,7 @@ Is "ok" callback.
 Is "cancel" callback.
 
 
-### bsModalCropper
+## bsModalCropper Options
 
 All bsModal options is can use.
 

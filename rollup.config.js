@@ -3,9 +3,8 @@ import copy from 'rollup-plugin-copy'
 import createBanner from 'create-banner'
 import pkg from './package.json'
 
-pkg.name = pkg.name.replace('js', '')
+const name = pkg.name.replace('jquery-plugin-', '')
 
-const name = 'bsModal';
 const banner = createBanner({
   data: {
     name: `${name}.js`,

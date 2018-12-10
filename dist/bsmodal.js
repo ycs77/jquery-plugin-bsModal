@@ -1,11 +1,11 @@
 /*!
- * bsModal.js v1.0.5
+ * bsmodal.js v1.0.5
  * https://github.com/yangchenshin77/bsModal
  *
  * Copyright 2018 Chen-shin, Yang
  * Released under the MIT license
  *
- * Date: 2018-11-27T13:36:09.826Z
+ * Date: 2018-12-10T08:22:11.884Z
  */
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
@@ -56,6 +56,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
       // Advanced
       label: null,
       lang: null,
+      langs: {},
 
       // Modal selector
       modal: null,
@@ -64,12 +65,15 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
       backdrop: true,
       confirm: false,
 
+      // Button
+      okBtn: true,
+      cancelBtn: true,
+
       // Text
       okBtnText: '',
       cancelBtnText: '',
       confirmOkText: '',
       confirmCancelText: '',
-      langs: {},
 
       // Color
       okBtnColor: 'primary',
@@ -150,44 +154,54 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
       $('<h' + settings.titleLavel + ' class="modal-title" />').attr('id', settings.label).html(settings.title).css('display', 'inline').appendTo(modalHeader);
 
-      if (settings.body) {
-        $('<div class="modal-body" />').html(settings.body).appendTo(modalContent);
-      }
-
-      var modalFooter = $('<div class="modal-footer" />').appendTo(modalContent);
-
       if (settings.close) {
         $('<button class="close" type="button" data-dismiss="modal" aria-label="Close" />').append($('<span aria-hidden="true">&times;</span>')).appendTo(modalHeader);
       }
 
-      var cancelBtn = $('<button type="button" data-dismiss="modal" />').addClass('btn btn-' + settings.cancelBtnColor).text(settings.cancelBtnText).appendTo(modalFooter);
+      if (settings.body) {
+        $('<div class="modal-body" />').html(settings.body).appendTo(modalContent);
+      }
 
-      var okBtn = $('<button type="button" />').addClass('btn btn-' + settings.okBtnColor).text(settings.okBtnText).appendTo(modalFooter);
+      var modalFooter = void 0;
+      var cancelBtn = void 0;
+      var okBtn = void 0;
+
+      if (settings.cancelBtn || settings.okBtn) {
+        modalFooter = $('<div class="modal-footer" />').appendTo(modalContent);
+
+        if (settings.cancelBtn) {
+          cancelBtn = $('<button type="button" data-dismiss="modal" />').addClass('btn btn-' + settings.cancelBtnColor).text(settings.cancelBtnText).appendTo(modalFooter);
+        }
+
+        if (settings.okBtn) {
+          okBtn = $('<button type="button" />').addClass('btn btn-' + settings.okBtnColor).text(settings.okBtnText).appendTo(modalFooter);
+        }
+      }
 
       // Event
-      var _open = function _open() {
+
+      modal.on('shown.bs.modal', function () {
         settings.onOpen.call(_this);
-      };
+      });
 
-      var _close = function _close() {
+      modal.on('hidden.bs.modal', function () {
         settings.onClose.call(_this);
-      };
+      });
 
-      var _ok = function _ok() {
-        if (settings.onOk.call(_this) === false) {
-          return;
-        }
-        modal.modal('hide');
-      };
+      if (okBtn) {
+        okBtn.on('click', function () {
+          if (settings.onOk.call(_this) === false) {
+            return;
+          }
+          modal.modal('hide');
+        });
+      }
 
-      var _cancel = function _cancel() {
-        settings.onCancel.call(_this);
-      };
-
-      modal.on('shown.bs.modal', _open);
-      modal.on('hidden.bs.modal', _close);
-      okBtn.on('click', _ok);
-      cancelBtn.on('click', _cancel);
+      if (cancelBtn) {
+        cancelBtn.on('click', function () {
+          settings.onCancel.call(_this);
+        });
+      }
     }
 
     // Set modal to public
