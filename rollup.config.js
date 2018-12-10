@@ -14,11 +14,18 @@ const banner = createBanner({
 
 export default {
   input: 'src/index.js',
-  output: {
-    banner,
-    file: `dist/${name}.js`,
-    format: 'esm'
-  },
+  output: [
+    {
+      banner,
+      file: `dist/${name}.js`,
+      format: 'umd'
+    },
+    {
+      banner,
+      file: `dist/${name}.esm.js`,
+      format: 'esm'
+    },
+  ],
   plugins: [
     babel({
       exclude: 'node_modules/**'

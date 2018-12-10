@@ -39,5 +39,11 @@
     "rollup-plugin-babel": "^3.0.7",
     "rollup-plugin-copy": "^0.2.3",
     "uglify-js": "^3.4.9"
+  },
+  "dependencies": {
+    "recursive-object-assign": "^1.0.1"
+  },
+  "peerDependencies": {
+    "jquery": "^3.3.1"
   }
 }

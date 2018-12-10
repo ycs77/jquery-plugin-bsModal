@@ -1,33 +1,12 @@
+import $ from 'jquery'
+import recursiveAssign from './recursiveAssign'
+import {
+  makeRatioImgDataURI,
+  dataURItoBlob,
+  blobtoDataURL
+} from './helpers'
 
-// Uses CommonJS, AMD or browser globals to create a jQuery plugin.
-
-;(function (factory) {
-  if (typeof define === 'function' && define.amd) {
-    // AMD. Register as an anonymous module.
-    define(['jquery'], factory)
-  } else if (typeof module === 'object' && module.exports) {
-    // Node/CommonJS
-    module.exports = (root, jQuery) => {
-      if (jQuery === undefined) {
-        // require('jQuery') returns a factory that requires window to
-        // build a jQuery instance, we normalize how we use modules
-        // that require this pattern but the window provided is a noop
-        // if it's defined (how jquery works)
-        if (typeof window !== 'undefined') {
-          jQuery = require('jquery')
-        }
-        else {
-          jQuery = require('jquery')(root)
-        }
-      }
-      factory(jQuery)
-      return jQuery
-    }
-  } else {
-    // Browser globals
-    factory(jQuery)
-  }
-}($ => {
+if ($.fn) {
 
   // Bootstrap plugin - Modal
   $.fn.bsModal = function (options) {
@@ -43,7 +22,20 @@
       // Advanced
       label: null,
       lang: null,
-      langs: {},
+      langs: {
+        'en': {
+          okBtnText: 'Save',
+          cancelBtnText: 'Close',
+          confirmOkText: 'OK',
+          confirmCancelText: 'Cancel'
+        },
+        'zh-TW': {
+          okBtnText: '儲存',
+          cancelBtnText: '關閉',
+          confirmOkText: '確定',
+          confirmCancelText: '取消'
+        }
+      },
 
       // Modal selector
       modal: null,
@@ -75,27 +67,11 @@
     }
 
     // Locale
-    const langs = $.extend({
-      'en': {
-        okBtnText: 'Save',
-        cancelBtnText: 'Close',
-        confirmOkText: 'OK',
-        confirmCancelText: 'Cancel'
-      },
-      'zh-TW': {
-        okBtnText: '儲存',
-        cancelBtnText: '關閉',
-        confirmOkText: '確定',
-        confirmCancelText: '取消'
-      }
-    }, defaults.langs)
-    const locale = langs[defaults.lang] || langs[navigator.language || navigator.userLanguage] || langs['en']
-    for (const v in locale) {
-      defaults[v] = locale[v]
-    }
+    const locale = defaults.langs[defaults.lang] || defaults.langs[navigator.language || navigator.userLanguage] || defaults.langs['en']
+    defaults = recursiveAssign({}, defaults, locale)
 
     // Settings
-    let settings = $.extend({}, defaults, options)
+    let settings = recursiveAssign({}, defaults, options)
     settings.label = settings.label || `${settings.id}Label`
 
     // Confirm mode
@@ -273,9 +249,7 @@
 
     }
 
-    let settings = $.extend({}, defaults, options)
-    settings.cropper = $.extend({}, defaults.cropper, options.cropper)
-    settings.uploadConfig = $.extend({}, defaults.uploadConfig, options.uploadConfig)
+    let settings = recursiveAssign({}, defaults, options)
 
     /**
      * @var {*} image Cropper image DOM
@@ -447,75 +421,4 @@
 
   }
 
-  /**
-   * Get new size image
-   * @param {string} dataURI
-   * @param {object} imgConfig
-   * @param {function} callback
-   */
-  function makeRatioImgDataURI(dataURI, imgConfig, callback) {
-    // Check width and height is exists
-    if (imgConfig.width === null &&
-      imgConfig.height === null) {
-      if (callback) {
-        callback(dataURI)
-        return
-      }
-    }
-
-    const aspectRatio = (imgW, imgH, maxW, maxH) => Math.min((maxW / imgW), (maxH / imgH))
-
-    let newDataURI = ''
-    let canvas = document.createElement('canvas')
-    let ctx = canvas.getContext('2d')
-
-    let img = new Image()
-    img.src = dataURI
-    img.onload = () => {
-      const w = img.width
-      const h = img.height
-      const sizer = aspectRatio(w, h, imgConfig.width, imgConfig.height)
-      canvas.width = w * sizer
-      canvas.height = h * sizer
-      ctx.drawImage(img, 0, 0, w, h, 0, 0, w * sizer, h * sizer)
-      newDataURI = canvas.toDataURL()
-
-      if (callback) {
-        callback(newDataURI)
-      }
-    }
-  }
-
-  /**
-   * DatURI to Blob
-   * @param {string} dataURI
-   */
-  function dataURItoBlob(dataURI) {
-    let byteString
-    if (dataURI.split(',')[0].indexOf('base64') >= 0) {
-      byteString = atob(dataURI.split(',')[1])
-    } else {
-      byteString = unescape(dataURI.split(',')[1])
-    }
-    const mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0]
-    const ia = new Uint8Array(byteString.length)
-    for (let i = 0; i < byteString.length; i++) {
-      ia[i] = byteString.charCodeAt(i)
-    }
-    return new Blob([ia], { type: mimeString })
-  }
-
-  /**
-   * Blob to DataURL
-   * @param {Blob|File} blob 
-   * @param {function} callback 
-   */
-  function blobtoDataURL(blob, callback) {
-    const fr = new FileReader()
-    fr.onload = e => {
-      callback(e.target.result)
-    }
-    fr.readAsDataURL(blob)
-  }
-
-}))
+}
