@@ -5,13 +5,13 @@
  * Copyright 2018 Chen-shin, Yang
  * Released under the MIT license
  *
- * Date: 2018-12-10T09:52:17.279Z
+ * Date: 2018-12-10T10:04:06.948Z
  */
 
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(require('jquery')) :
   typeof define === 'function' && define.amd ? define(['jquery'], factory) :
-  (factory(global.$));
+  (factory(global.jQuery));
 }(this, (function ($) { 'use strict';
 
   $ = $ && $.hasOwnProperty('default') ? $['default'] : $;
@@ -154,14 +154,22 @@
         lang: null,
         langs: {
           'en': {
-            okBtnText: 'Save',
-            cancelBtnText: 'Close',
+            okBtn: {
+              text: 'Save'
+            },
+            cancelBtn: {
+              text: 'Close'
+            },
             confirmOkText: 'OK',
             confirmCancelText: 'Cancel'
           },
           'zh-TW': {
-            okBtnText: '儲存',
-            cancelBtnText: '關閉',
+            okBtn: {
+              text: '儲存'
+            },
+            cancelBtn: {
+              text: '關閉'
+            },
             confirmOkText: '確定',
             confirmCancelText: '取消'
           }
@@ -175,18 +183,18 @@
         confirm: false,
 
         // Button
-        okBtn: true,
-        cancelBtn: true,
+        okBtn: {
+          text: '',
+          color: 'primary'
+        },
+        cancelBtn: {
+          text: '',
+          color: 'secondary'
+        },
 
         // Text
-        okBtnText: '',
-        cancelBtnText: '',
         confirmOkText: '',
         confirmCancelText: '',
-
-        // Color
-        okBtnColor: 'primary',
-        cancelBtnColor: 'secondary',
 
         // Event
         onOpen: function onOpen() {
@@ -212,8 +220,8 @@
 
       // Confirm mode
       if (settings.confirm) {
-        settings.okBtnText = settings.confirmOkText;
-        settings.cancelBtnText = settings.confirmCancelText;
+        settings.okBtn.Text = settings.confirmOkText;
+        settings.cancelBtn.Text = settings.confirmCancelText;
         if (typeof options.close === 'undefined') {
           settings.close = false;
         }
@@ -263,11 +271,11 @@
           modalFooter = $('<div class="modal-footer" />').appendTo(modalContent);
 
           if (settings.cancelBtn) {
-            cancelBtn = $('<button type="button" data-dismiss="modal" />').addClass('btn btn-' + settings.cancelBtnColor).text(settings.cancelBtnText).appendTo(modalFooter);
+            cancelBtn = $('<button type="button" data-dismiss="modal" />').addClass('btn btn-' + settings.cancelBtn.color).text(settings.cancelBtn.text).appendTo(modalFooter);
           }
 
           if (settings.okBtn) {
-            okBtn = $('<button type="button" />').addClass('btn btn-' + settings.okBtnColor).text(settings.okBtnText).appendTo(modalFooter);
+            okBtn = $('<button type="button" />').addClass('btn btn-' + settings.okBtn.color).text(settings.okBtn.text).appendTo(modalFooter);
           }
         }
 

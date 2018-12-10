@@ -8,7 +8,11 @@
  * Date: 2018-12-10T10:04:06.948Z
  */
 
-import $ from 'jquery';
+'use strict';
+
+function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
+
+var $ = _interopDefault(require('jquery'));
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
   return typeof obj;

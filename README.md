@@ -187,34 +187,38 @@ Use modal confirm mode.
 
 #### okBtn
 
-* Type: `Boolean`
-* Default: `true`
+* Type: `Object`
+* Default:
+```
+  {
+    text: '',
+    color: 'primary'
+  }
+```
 
-Can show `okBtn`.
+The ok button options.
+If do not want to display ok button, set it to `null`.
+
+* text: Define the modal ok button text.
+* color: Define the modal ok button color, use bootstrap color.
 
 
 #### cancelBtn
 
-* Type: `Boolean`
-* Default: `true`
+* Type: `Object`
+* Default:
+```
+  {
+    text: '',
+    color: 'secondary'
+  }
+```
 
-Can show `cancelBtn`.
+The cancel button options.
+If do not want to display cancel button, set it to `null`.
 
-
-#### okBtnText
-
-* Type: `String`
-* Default: `''`
-
-Define the modal ok button text.
-
-
-#### cancelBtnText
-
-* Type: `String`
-* Default: `''`
-
-Define the modal cancel button text.
+* text: Define the modal cancel button text.
+* color: Define the modal cancel button color, use bootstrap color.
 
 
 #### confirmOkText
@@ -231,22 +235,6 @@ Define the confirm mode modal ok button text.
 * Default: `''`
 
 Define the confirm mode modal cancel button text.
-
-
-#### okBtnColor
-
-* Type: `String`
-* Default: `primary`
-
-Define the modal ok button color, use bootstrap color.
-
-
-#### cancelBtnColor
-
-* Type: `String`
-* Default: `secondary`
-
-Define the modal cancel button color, use bootstrap color.
 
 
 ### Callback

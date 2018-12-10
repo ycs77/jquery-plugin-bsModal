@@ -1,5 +1,5 @@
 import babel from 'rollup-plugin-babel'
-import copy from 'rollup-plugin-copy'
+import resolve from 'rollup-plugin-node-resolve'
 import createBanner from 'create-banner'
 import pkg from './package.json'
 
@@ -18,20 +18,34 @@ export default {
     {
       banner,
       file: `dist/${name}.js`,
-      format: 'umd'
+      format: 'umd',
+      globals: {
+        jquery: 'jQuery'
+      }
+    },
+    {
+      banner,
+      file: `dist/${name}.common.js`,
+      format: 'cjs'
     },
     {
       banner,
       file: `dist/${name}.esm.js`,
       format: 'esm'
     },
+    {
+      banner,
+      file: `docs/js/${name}.js`,
+      format: 'umd',
+      globals: {
+        jquery: 'jQuery'
+      }
+    }
   ],
   plugins: [
+    resolve(),
     babel({
       exclude: 'node_modules/**'
-    }),
-    copy({
-      'dist/bsmodal.js': 'docs/js/bsmodal.js'
     })
   ]
 }
