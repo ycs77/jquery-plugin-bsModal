@@ -1,11 +1,11 @@
 /*!
- * bsmodal.js v1.0.6
+ * bsmodal.js v1.0.7
  * https://github.com/yangchenshin77/bsModal
  *
  * Copyright 2018 Chen-shin, Yang
  * Released under the MIT license
  *
- * Date: 2018-12-21T04:54:28.423Z
+ * Date: 2018-12-21T04:56:38.557Z
  */
 
 (function (global, factory) {
