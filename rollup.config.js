@@ -25,16 +25,6 @@ export default {
     },
     {
       banner,
-      file: `dist/${name}.common.js`,
-      format: 'cjs'
-    },
-    {
-      banner,
-      file: `dist/${name}.esm.js`,
-      format: 'esm'
-    },
-    {
-      banner,
       file: `docs/js/${name}.js`,
       format: 'umd',
       globals: {

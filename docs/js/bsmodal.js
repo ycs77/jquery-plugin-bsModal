@@ -5,7 +5,7 @@
  * Copyright 2018 Chen-shin, Yang
  * Released under the MIT license
  *
- * Date: 2018-12-10T10:17:00.622Z
+ * Date: 2018-12-21T04:54:28.423Z
  */
 
 (function (global, factory) {
