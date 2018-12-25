@@ -2,7 +2,7 @@
 
 [![npm version](https://badge.fury.io/js/jquery-plugin-bsmodal.svg)](https://badge.fury.io/js/jquery-plugin-bsmodal)
 
-bsModal is jQuery plugin, generate bootstrap 4 modal, And crop image modal.
+bsModal is jQuery plugin, generate bootstrap 4 modal, And crop&upload image modal.
 
 ## Example
 
