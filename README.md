@@ -333,14 +333,6 @@ Define the crop image.
 Define the upload url, if type is not string, then can't upload.
 
 
-#### method
-
-* Type: `String`
-* Default: `post`
-
-Define the upload method.
-
-
 #### fileName
 
 * Type: `String`

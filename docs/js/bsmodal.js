@@ -341,7 +341,6 @@
 
         // Upload
         action: null,
-        method: 'post',
         fileName: 'file',
         data: {},
         uploadConfig: {
@@ -511,7 +510,7 @@
           // Use axios
           settings.axios({
             url: settings.action,
-            method: settings.method,
+            method: 'POST',
             data: formData,
             headers: {
               'Content-Type': 'multipart/form-data'
@@ -522,7 +521,7 @@
         } else if (typeof $.ajax !== 'undefined') {
           // Use jquery ajax
           $.ajax(settings.action, {
-            method: settings.method,
+            method: 'POST',
             data: formData,
             processData: false,
             contentType: false,
