@@ -190,10 +190,10 @@ Use modal confirm mode.
 * Type: `Object`
 * Default:
 ```
-  {
-    text: '',
-    color: 'primary'
-  }
+{
+  text: '',
+  color: 'primary'
+}
 ```
 
 The ok button options.
@@ -208,10 +208,10 @@ If do not want to display ok button, set it to `null`.
 * Type: `Object`
 * Default:
 ```
-  {
-    text: '',
-    color: 'secondary'
-  }
+{
+  text: '',
+  color: 'secondary'
+}
 ```
 
 The cancel button options.
@@ -244,7 +244,7 @@ Define the confirm mode modal cancel button text.
 * Type: `Function`
 * Default: `null`
 
-Is "open" callback.
+Is open modal callback.
 
 
 #### onClose
@@ -252,7 +252,7 @@ Is "open" callback.
 * Type: `Function`
 * Default: `null`
 
-Is "close" callback.
+Is close modal callback.
 
 
 #### onOk
@@ -260,7 +260,7 @@ Is "close" callback.
 * Type: `Function`
 * Default: `null`
 
-Is "ok" callback.
+Is ok callback.
 
 
 #### onCancel
@@ -268,7 +268,7 @@ Is "ok" callback.
 * Type: `Function`
 * Default: `null`
 
-Is "cancel" callback.
+Is cancel callback.
 
 
 ## bsModalCropper Options
@@ -312,7 +312,12 @@ Define the crop image id.
 #### cropper
 
 * Type: `Object`
-* Default: `exampleImage`
+* Default:
+```
+{
+  viewMode: 1
+}
+```
 
 Define the Cropper.js options.
 
@@ -322,7 +327,7 @@ Define the Cropper.js options.
 * Type: `Number|null`
 * Default: `null`
 
-Define the crop image.
+Define the crop image max width.
 
 
 #### action
@@ -330,7 +335,7 @@ Define the crop image.
 * Type: `String|null`
 * Default: `null`
 
-Define the upload url, if type is not string, then can't upload.
+Define the upload url, if action is null, then can't upload.
 
 
 #### fileName
@@ -360,16 +365,16 @@ Options:
     * Type: `Array`
     * Default: `['image/jpeg', 'image/png']`
 
-    Allow upload mimeType
+    Allow upload mimeType.
 
 * maxSize
 
     * Type: `Number`
-    * Default: `5242880`
+    * Default: `5242880` (5MB)
 
-    Upload file max size
+    Upload file max size (Byte).
 
-Define the upload input name.
+Define the upload config.
 
 
 #### success
@@ -401,7 +406,7 @@ If ajax function use axios, input axios instance.
 * Type: `Boolean`
 * Default: `false`
 
-The axios successful return data is res or res.data;
+The axios successful return data is `res` or `res.data`.
 
 
 #### onUpload
@@ -409,7 +414,7 @@ The axios successful return data is res or res.data;
 * Type: `Function`
 * Default: `null`
 
-Is "upload" callback.
+Is upload callback.
 
 
 #### onUploadError
@@ -417,7 +422,7 @@ Is "upload" callback.
 * Type: `Function`
 * Default: `null`
 
-Is "uploadError" callback.
+Is uploadError callback.
 
 
 #### onCropper
@@ -425,4 +430,4 @@ Is "uploadError" callback.
 * Type: `Function`
 * Default: `null`
 
-Is "cropper" callback.
+Is cropper callback.
