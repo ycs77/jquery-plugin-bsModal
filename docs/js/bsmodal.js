@@ -1,11 +1,11 @@
 /*!
- * bsmodal.js v1.0.9
+ * bsmodal.js v1.0.10
  * https://github.com/ycs77/jquery-plugin-bsModal
  *
  * Copyright 2018 Chen-shin, Yang
  * Released under the MIT license
  *
- * Date: 2018-12-25T07:24:29.111Z
+ * Date: 2019-02-20T07:36:14.015Z
  */
 
 (function (global, factory) {
@@ -218,16 +218,11 @@
       var settings = recursiveAssign({}, defaults, options);
       settings.label = settings.label || settings.id + 'Label';
 
-      // Confirm mode
-      if (settings.confirm) {
-        settings.okBtn.Text = settings.confirmOkText;
-        settings.cancelBtn.Text = settings.confirmCancelText;
-        if (typeof options.close === 'undefined') {
-          settings.close = false;
-        }
-        if (typeof options.backdrop === 'undefined') {
-          settings.backdrop = 'static';
-        }
+      if (typeof options.close === 'undefined') {
+        settings.close = false;
+      }
+      if (typeof options.backdrop === 'undefined') {
+        settings.backdrop = 'static';
       }
 
       var modal = null;
@@ -271,11 +266,11 @@
           modalFooter = $('<div class="modal-footer" />').appendTo(modalContent);
 
           if (settings.cancelBtn) {
-            cancelBtn = $('<button type="button" data-dismiss="modal" />').addClass('btn btn-' + settings.cancelBtn.color).text(settings.cancelBtn.text).appendTo(modalFooter);
+            cancelBtn = $('<button type="button" data-dismiss="modal" />').addClass('btn btn-' + settings.cancelBtn.color).text(!settings.confirm ? settings.cancelBtn.text : settings.confirmCancelText).appendTo(modalFooter);
           }
 
           if (settings.okBtn) {
-            okBtn = $('<button type="button" />').addClass('btn btn-' + settings.okBtn.color).text(settings.okBtn.text).appendTo(modalFooter);
+            okBtn = $('<button type="button" />').addClass('btn btn-' + settings.okBtn.color).text(!settings.confirm ? settings.okBtn.text : settings.confirmOkText).appendTo(modalFooter);
           }
         }
 

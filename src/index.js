@@ -75,23 +75,23 @@ if ($.fn) {
     }
 
     // Locale
-    const locale = defaults.langs[defaults.lang] || defaults.langs[navigator.language || navigator.userLanguage] || defaults.langs['en']
+    const locale = defaults.langs[defaults.lang]
+      || defaults.langs[
+        navigator.language ||
+        navigator.userLanguage
+      ]
+      || defaults.langs['en']
     defaults = recursiveAssign({}, defaults, locale)
 
     // Settings
     let settings = recursiveAssign({}, defaults, options)
     settings.label = settings.label || `${settings.id}Label`
 
-    // Confirm mode
-    if (settings.confirm) {
-      settings.okBtn.Text = settings.confirmOkText
-      settings.cancelBtn.Text = settings.confirmCancelText
-      if (typeof options.close === 'undefined') {
-        settings.close = false
-      }
-      if (typeof options.backdrop === 'undefined') {
-        settings.backdrop = 'static'
-      }
+    if (typeof options.close === 'undefined') {
+      settings.close = false
+    }
+    if (typeof options.backdrop === 'undefined') {
+      settings.backdrop = 'static'
     }
 
     let modal = null
@@ -153,14 +153,22 @@ if ($.fn) {
         if (settings.cancelBtn) {
           cancelBtn = $('<button type="button" data-dismiss="modal" />')
             .addClass(`btn btn-${settings.cancelBtn.color}`)
-            .text(settings.cancelBtn.text)
+            .text(
+              !settings.confirm
+                ? settings.cancelBtn.text
+                : settings.confirmCancelText
+            )
             .appendTo(modalFooter)
         }
 
         if (settings.okBtn) {
           okBtn = $('<button type="button" />')
             .addClass(`btn btn-${settings.okBtn.color}`)
-            .text(settings.okBtn.text)
+            .text(
+              !settings.confirm
+                ? settings.okBtn.text
+                : settings.confirmOkText
+            )
             .appendTo(modalFooter)
         }
       }
