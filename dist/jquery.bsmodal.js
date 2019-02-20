@@ -1,11 +1,11 @@
 /*!
- * bsmodal.js v1.0.10
+ * jquery.bsmodal.js v1.0.11
  * https://github.com/ycs77/jquery-plugin-bsModal
  *
- * Copyright 2018 Chen-shin, Yang
+ * Copyright 2018-2019 Lucas Yang
  * Released under the MIT license
  *
- * Date: 2019-02-20T07:36:14.015Z
+ * Date: 2019-02-20T08:12:04.992Z
  */
 
 (function (global, factory) {

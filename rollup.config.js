@@ -3,13 +3,13 @@ import resolve from 'rollup-plugin-node-resolve'
 import createBanner from 'create-banner'
 import pkg from './package.json'
 
-const name = pkg.name.replace('jquery-plugin-', '')
+const name = pkg.name.replace('jquery-plugin-', 'jquery.')
 
 const banner = createBanner({
   data: {
     name: `${name}.js`,
-    year: '2018',
-  },
+    year: '2018-' + new Date().getFullYear()
+  }
 })
 
 export default {

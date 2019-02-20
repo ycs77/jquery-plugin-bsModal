@@ -1,16 +1,16 @@
 {
   "name": "jquery-plugin-bsmodal",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "description": "bsModal is jQuery plugin, generate bootstrap 4 modal, And crop&upload image modal.",
-  "main": "dist/bsmodal.js",
+  "main": "dist/jquery.bsmodal.js",
   "scripts": {
     "build": "cross-env NODE_ENV=production rollup -c",
-    "compress": "uglifyjs dist/bsmodal.js -o dist/bsmodal.min.js -c -m --comments /^!/",
+    "compress": "uglifyjs dist/jquery.bsmodal.js -o dist/jquery.bsmodal.min.js -c -m --comments /^!/",
     "dev": "cross-env NODE_ENV=development rollup -c",
     "release": "npm run build && npm run compress",
     "watch": "rollup -c -w"
   },
-  "author": "Chen-shin, Yang",
+  "author": "Lucas Yang",
   "license": "MIT",
   "repository": {
     "type": "git",
