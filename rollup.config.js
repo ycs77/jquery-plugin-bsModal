@@ -14,13 +14,14 @@ const banner = createBanner({
 
 export default {
   input: 'src/index.js',
+  external: ['jquery'],
   output: [
     {
       banner,
       file: `dist/${name}.js`,
       format: 'umd',
       globals: {
-        jquery: 'jQuery'
+        jquery: '$'
       }
     },
     {
@@ -28,7 +29,7 @@ export default {
       file: `docs/js/${name}.js`,
       format: 'umd',
       globals: {
-        jquery: 'jQuery'
+        jquery: '$'
       }
     }
   ],
