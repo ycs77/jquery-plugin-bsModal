@@ -240,6 +240,7 @@ if ($.fn) {
       maxHeight: null,
 
       // Upload
+      uploadFile: null,
       action: null,
       method: 'post',
       fileName: 'file',
@@ -296,7 +297,7 @@ if ($.fn) {
       }, dataURI => {
 
         // Cropper image event
-        settings.onCropper.call(this, dataURI, dataURItoBlob(dataURI))
+        settings.onCropper.call(this, dataURI, dataURItoBlob(dataURI), settings.uploadFile)
 
         if (typeof settings.action === 'string') {
           // Upload image to server
@@ -327,6 +328,9 @@ if ($.fn) {
     if (settings.src) {
       image.attr('src', settings.src)
 
+      // Clear uploaded file
+      settings.uploadFile = null
+
       this.bsModal(settings)
     } else {
       // Upload image to browser
@@ -346,10 +350,13 @@ if ($.fn) {
          */
         let file = inputFile.files[0]
 
+        // Uploaded file
+        settings.uploadFile = file
+
         // Uploaded clear image
         inputFile.value = ''
 
-        if (settings.onUpload.call(this) === false) {
+        if (settings.onUpload.call(this, settings.uploadFile) === false) {
           return
         }
 

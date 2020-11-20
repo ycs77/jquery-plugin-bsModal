@@ -13,7 +13,6 @@
   <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.slim.min.js" as="script">
   <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.4.3/cropper.min.js" as="script">
   <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.14.2/highlight.min.js" as="script">
-  <link rel="preload" href="js/jquery.bsmodal.js" as="script">
 
   <!-- CSS -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
@@ -161,9 +160,9 @@
   },
 
   // On cropper
-  onCropper: function (dataURL) {
+  onCropper: function (imgDataURL, imgBlob, uploadFile) {
     $('#cropedImageBox').show();
-    $('#cropedImage').attr('src', dataURL);
+    $('#cropedImage').attr('src', imgDataURL);
   }
 });</code></pre>
     </div>
@@ -204,9 +203,9 @@ $('#cropLimitImageBtn').bsModalCropper({
   },
 
   // On cropper
-  onCropper: function (dataURL) {
+  onCropper: function (imgDataURL, imgBlob, uploadFile) {
     $('#cropedLimitImageBox').show();
-    $('#cropedLimitImage').attr('src', dataURL);
+    $('#cropedLimitImage').attr('src', imgDataURL);
   }
 });
 </code></pre>
@@ -244,9 +243,9 @@ $('#cropLimitImageBtn').bsModalCropper({
   },
 
   // On cropper
-  onCropper: function (dataURL) {
+  onCropper: function (imgDataURL, imgBlob, uploadFile) {
     $('#cropedUploadImageBox').show();
-    $('#cropedUploadImage').attr('src', dataURL);
+    $('#cropedUploadImage').attr('src', imgDataURL);
   },
 
   // // Upload image
@@ -257,8 +256,11 @@ $('#cropLimitImageBtn').bsModalCropper({
   uploadConfig: {
     maxSize: Math.pow(1024, 2) * 5 // 5M
   },
+  onUpload: function (uploadFile) {
+    console.log(uploadFile);
+  },
   onUploadError: function (error) {
-    alert(error)
+    console.error(error);
   }
 });</code></pre>
     </div>
@@ -329,9 +331,9 @@ $('#cropLimitImageBtn').bsModalCropper({
       },
 
       // On cropper
-      onCropper: function (dataURL) {
+      onCropper: function (imgDataURL, imgBlob, uploadFile) {
         $('#cropedImageBox').show();
-        $('#cropedImage').attr('src', dataURL);
+        $('#cropedImage').attr('src', imgDataURL);
       }
     });
 
@@ -350,9 +352,9 @@ $('#cropLimitImageBtn').bsModalCropper({
       },
 
       // On cropper
-      onCropper: function (dataURL) {
+      onCropper: function (imgDataURL, imgBlob, uploadFile) {
         $('#cropedLimitImageBox').show();
-        $('#cropedLimitImage').attr('src', dataURL);
+        $('#cropedLimitImage').attr('src', imgDataURL);
       }
     });
 
@@ -366,9 +368,9 @@ $('#cropLimitImageBtn').bsModalCropper({
       },
 
       // On cropper
-      onCropper: function (dataURL) {
+      onCropper: function (imgDataURL, imgBlob, uploadFile) {
         $('#cropedUploadImageBox').show();
-        $('#cropedUploadImage').attr('src', dataURL);
+        $('#cropedUploadImage').attr('src', imgDataURL);
       },
 
       // // Upload image
@@ -379,8 +381,11 @@ $('#cropLimitImageBtn').bsModalCropper({
       uploadConfig: {
         maxSize: Math.pow(1024, 2) * 5 // 5M
       },
+      onUpload: function (uploadFile) {
+        console.log(uploadFile);
+      },
       onUploadError: function (error) {
-        alert(error)
+        console.error(error);
       }
     });
   </script>

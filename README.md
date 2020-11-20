@@ -242,7 +242,6 @@ Define the confirm mode modal cancel button text.
 #### onOpen
 
 * Type: `Function`
-* Default: `null`
 
 Is open modal callback.
 
@@ -250,7 +249,6 @@ Is open modal callback.
 #### onClose
 
 * Type: `Function`
-* Default: `null`
 
 Is close modal callback.
 
@@ -258,7 +256,6 @@ Is close modal callback.
 #### onOk
 
 * Type: `Function`
-* Default: `null`
 
 Is ok callback.
 
@@ -266,7 +263,6 @@ Is ok callback.
 #### onCancel
 
 * Type: `Function`
-* Default: `null`
 
 Is cancel callback.
 
@@ -380,7 +376,6 @@ Define the upload config.
 #### success
 
 * Type: `Function`
-* Default: `null`
 
 Is upload success callback.
 
@@ -388,7 +383,6 @@ Is upload success callback.
 #### error
 
 * Type: `Function`
-* Default: `null`
 
 Is upload error callback.
 
@@ -396,7 +390,6 @@ Is upload error callback.
 #### axios
 
 * Type: `Function`
-* Default: `null`
 
 If ajax function use axios, input axios instance.
 
@@ -412,15 +405,19 @@ The axios successful return data is `res` or `res.data`.
 #### onUpload
 
 * Type: `Function`
-* Default: `null`
 
 Is upload callback.
+
+```js
+function (uploadFile) {
+  console.log(uploadFile);
+}
+```
 
 
 #### onUploadError
 
 * Type: `Function`
-* Default: `null`
 
 Is uploadError callback.
 
@@ -428,6 +425,12 @@ Is uploadError callback.
 #### onCropper
 
 * Type: `Function`
-* Default: `null`
+
+```js
+function (imgDataURL, imgBlob, uploadFile) {
+  $('#cropedUploadImageBox').show();
+  $('#cropedUploadImage').attr('src', imgDataURL);
+}
+```
 
 Is cropper callback.
