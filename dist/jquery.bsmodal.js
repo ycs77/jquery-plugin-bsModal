@@ -1,11 +1,11 @@
 /*!
- * jquery.bsmodal.js v1.1.0
+ * jquery.bsmodal.js v1.1.1
  * https://github.com/ycs77/jquery-plugin-bsModal
  *
- * Copyright 2018-2020 Lucas Yang
+ * Copyright 2018-2021 Lucas Yang
  * Released under the MIT license
  *
- * Date: 2020-11-20T02:38:46.226Z
+ * Date: 2021-01-06T19:50:09.295Z
  */
 
 (function (global, factory) {
@@ -378,12 +378,17 @@
 
       var cropper;
       settings.body = $__default['default']('<div class="img-container" />').append(image);
+      var onOpen = settings.onOpen;
 
       settings.onOpen = function () {
         cropper = new Cropper(image.get(0), settings.cropper);
+        onOpen();
       };
 
+      var onOk = settings.onOk;
+
       settings.onOk = function () {
+        onOk();
         var croppedDataURL = cropper.getCroppedCanvas().toDataURL();
         cropper.destroy(); // Renew image size
 
@@ -415,8 +420,11 @@
         });
       };
 
+      var onCancel = settings.onCancel;
+
       settings.onCancel = function () {
         cropper.destroy();
+        onCancel();
       };
 
       if (settings.src) {

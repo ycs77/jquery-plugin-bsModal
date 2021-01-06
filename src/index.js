@@ -282,11 +282,16 @@ if ($.fn) {
 
     settings.body = $('<div class="img-container" />').append(image)
 
+    const onOpen = settings.onOpen
     settings.onOpen = () => {
       cropper = new Cropper(image.get(0), settings.cropper)
+      onOpen()
     }
 
+    const onOk = settings.onOk
     settings.onOk = () => {
+      onOk()
+
       const croppedDataURL = cropper.getCroppedCanvas().toDataURL()
       cropper.destroy()
 
@@ -321,8 +326,10 @@ if ($.fn) {
       })
     }
 
+    const onCancel = settings.onCancel
     settings.onCancel = () => {
       cropper.destroy()
+      onCancel()
     }
 
     if (settings.src) {
