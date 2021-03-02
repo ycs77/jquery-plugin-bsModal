@@ -286,6 +286,15 @@ if ($.fn) {
     const onOpen = settings.onOpen
     settings.onOpen = () => {
       if (settings.imageMimeType === 'auto') {
+        const mimetypeMap = {
+          jpg: 'image/jpeg',
+          jpeg: 'image/jpeg',
+          png: 'image/png',
+          gif: 'image/gif',
+          svg: 'image/svg+xml',
+          webp: 'image/webp',
+        }
+
         try {
           // check is is base64 or not (throw exception)
           atob(settings.src.split(',')[1])
@@ -295,21 +304,16 @@ if ($.fn) {
         } catch (error) {
           if (error instanceof DOMException) {
             // is image
-            const mimetypeMap = {
-              jpg: 'image/jpeg',
-              jpeg: 'image/jpeg',
-              png: 'image/png',
-              gif: 'image/gif',
-              svg: 'image/svg+xml',
-              webp: 'image/webp',
-            }
             const m = settings.src.match(/\.(\w+)$/)
             settings.imageMimeType = mimetypeMap[m && m[1]]
           }
         }
 
         // If guess is not working, return the default mime-type
-        if (settings.imageMimeType === 'auto') {
+        if (
+          settings.imageMimeType === 'auto' ||
+          !(settings.imageMimeType in Object.keys(mimetypeMap))
+        ) {
           settings.imageMimeType = 'image/jpeg'
         }
       }
