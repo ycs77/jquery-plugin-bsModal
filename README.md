@@ -326,6 +326,22 @@ Define the Cropper.js options.
 Define the crop image max width.
 
 
+#### maxHeight
+
+* Type: `Number|null`
+* Default: `null`
+
+Define the crop image max height.
+
+
+#### imageMimeType
+
+* Type: `String`
+* Default: `'auto'`
+
+Define the cropped image Mime-Type, If set `'auto'` will guess the image Mime-Type, or force set the Mime-Type, Ex: `image/jpeg`.
+
+
 #### action
 
 * Type: `String|null`
