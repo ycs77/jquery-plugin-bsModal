@@ -1,11 +1,11 @@
 /*!
- * jquery.bsmodal.js v1.2.0
+ * jquery.bsmodal.js v1.2.1
  * https://github.com/ycs77/jquery-plugin-bsModal
  *
  * Copyright 2018-2021 Lucas Yang
  * Released under the MIT license
  *
- * Date: 2021-03-02T09:39:15.177Z
+ * Date: 2021-03-02T10:01:12.282Z
  */
 
 (function (global, factory) {
@@ -376,6 +376,15 @@
 
       settings.onOpen = function () {
         if (settings.imageMimeType === 'auto') {
+          var mimetypeMap = {
+            jpg: 'image/jpeg',
+            jpeg: 'image/jpeg',
+            png: 'image/png',
+            gif: 'image/gif',
+            svg: 'image/svg+xml',
+            webp: 'image/webp'
+          };
+
           try {
             // check is is base64 or not (throw exception)
             atob(settings.src.split(',')[1]); // is base64
@@ -384,21 +393,13 @@
           } catch (error) {
             if (error instanceof DOMException) {
               // is image
-              var mimetypeMap = {
-                jpg: 'image/jpeg',
-                jpeg: 'image/jpeg',
-                png: 'image/png',
-                gif: 'image/gif',
-                svg: 'image/svg+xml',
-                webp: 'image/webp'
-              };
               var m = settings.src.match(/\.(\w+)$/);
               settings.imageMimeType = mimetypeMap[m && m[1]];
             }
           } // If guess is not working, return the default mime-type
 
 
-          if (settings.imageMimeType === 'auto') {
+          if (settings.imageMimeType === 'auto' || !(settings.imageMimeType in Object.keys(mimetypeMap))) {
             settings.imageMimeType = 'image/jpeg';
           }
         }
