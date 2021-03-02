@@ -300,25 +300,22 @@ if ($.fn) {
         width: settings.maxWidth,
         height: settings.maxHeight
       }, dataURI => {
+        const blob = dataURItoBlob(dataURI)
 
         // Cropper image event
-        settings.onCropper.call(this, dataURI, dataURItoBlob(dataURI), settings.uploadFile)
+        settings.onCropper.call(this, dataURI, blob, settings.uploadFile)
 
         if (typeof settings.action === 'string') {
           // Upload image to server
-          const blob = dataURItoBlob(dataURI)
           const formData = new FormData()
 
           // Upload file
           formData.append(settings.fileName, blob)
 
           // Upload data
-          const dataKeys = Object.keys(settings.data)
-          if (dataKeys.length) {
-            dataKeys.forEach(key => {
-              formData.append(key, settings.data[key]);
-            })
-          }
+          Object.keys(settings.data).forEach(key => {
+            formData.append(key, settings.data[key])
+          })
 
           // Use ajax post to server
           ajax(settings, formData)

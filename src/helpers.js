@@ -4,36 +4,28 @@
  * @param {object} imgConfig
  * @param {function} callback
  */
-export const makeRatioImgDataURI = function (dataURI, imgConfig, callback) {
+export function makeRatioImgDataURI(dataURI, imgConfig, callback) {
   // Check width and height is exists
-  if (imgConfig.width === null &&
-    imgConfig.height === null) {
-    if (callback) {
-      callback(dataURI)
-      return
-    }
+  if (imgConfig.width === null && imgConfig.height === null) {
+    callback(dataURI)
+    return
   }
 
   const aspectRatio = (imgW, imgH, maxW, maxH) => Math.min((maxW / imgW), (maxH / imgH))
 
-  let newDataURI = ''
   let canvas = document.createElement('canvas')
   let ctx = canvas.getContext('2d')
 
   let img = new Image()
   img.src = dataURI
   img.onload = () => {
-    const w = img.width
-    const h = img.height
+    const w = img.naturalWidth
+    const h = img.naturalHeight
     const sizer = aspectRatio(w, h, imgConfig.width, imgConfig.height)
     canvas.width = w * sizer
     canvas.height = h * sizer
     ctx.drawImage(img, 0, 0, w, h, 0, 0, w * sizer, h * sizer)
-    newDataURI = canvas.toDataURL()
-
-    if (callback) {
-      callback(newDataURI)
-    }
+    callback(canvas.toDataURL())
   }
 }
 
@@ -41,7 +33,7 @@ export const makeRatioImgDataURI = function (dataURI, imgConfig, callback) {
  * DatURI to Blob
  * @param {string} dataURI
  */
-export const dataURItoBlob = function (dataURI) {
+export function dataURItoBlob(dataURI) {
   let byteString
   if (dataURI.split(',')[0].indexOf('base64') >= 0) {
     byteString = atob(dataURI.split(',')[1])
@@ -61,7 +53,7 @@ export const dataURItoBlob = function (dataURI) {
  * @param {Blob|File} blob 
  * @param {function} callback 
  */
-export const blobtoDataURL = function (blob, callback) {
+export function blobtoDataURL(blob, callback) {
   const fr = new FileReader()
   fr.onload = e => {
     callback(e.target.result)
