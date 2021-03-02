@@ -238,6 +238,7 @@ if ($.fn) {
       },
       maxWidth: null,
       maxHeight: null,
+      imageMimeType: 'auto',
 
       // Upload
       uploadFile: null,
@@ -284,6 +285,35 @@ if ($.fn) {
 
     const onOpen = settings.onOpen
     settings.onOpen = () => {
+      if (settings.imageMimeType === 'auto') {
+        try {
+          // check is is base64 or not (throw exception)
+          atob(settings.src.split(',')[1])
+  
+          // is base64
+          settings.imageMimeType = settings.src.split(':')[1].split(';')[0]
+        } catch (error) {
+          if (error instanceof DOMException) {
+            // is image
+            const mimetypeMap = {
+              jpg: 'image/jpeg',
+              jpeg: 'image/jpeg',
+              png: 'image/png',
+              gif: 'image/gif',
+              svg: 'image/svg+xml',
+              webp: 'image/webp',
+            }
+            const m = settings.src.match(/\.(\w+)$/)
+            settings.imageMimeType = mimetypeMap[m && m[1]]
+          }
+        }
+
+        // If guess is not working, return the default mime-type
+        if (settings.imageMimeType === 'auto') {
+          settings.imageMimeType = 'image/jpeg'
+        }
+      }
+
       cropper = new Cropper(image.get(0), settings.cropper)
       if (onOpen) onOpen()
     }
@@ -292,7 +322,7 @@ if ($.fn) {
     settings.onOk = () => {
       if (onOk) onOk()
 
-      const croppedDataURL = cropper.getCroppedCanvas().toDataURL()
+      const croppedDataURL = cropper.getCroppedCanvas().toDataURL(settings.imageMimeType)
       cropper.destroy()
 
       // Renew image size
