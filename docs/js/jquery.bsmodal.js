@@ -1,11 +1,11 @@
 /*!
- * jquery.bsmodal.js v1.1.1
+ * jquery.bsmodal.js v1.2.0
  * https://github.com/ycs77/jquery-plugin-bsModal
  *
  * Copyright 2018-2021 Lucas Yang
  * Released under the MIT license
  *
- * Date: 2021-01-06T19:50:09.295Z
+ * Date: 2021-03-02T09:39:15.177Z
  */
 
 (function (global, factory) {
@@ -79,45 +79,38 @@
    * @param {object} imgConfig
    * @param {function} callback
    */
-  var makeRatioImgDataURI = function makeRatioImgDataURI(dataURI, imgConfig, callback) {
+  function makeRatioImgDataURI(dataURI, imgConfig, callback) {
     // Check width and height is exists
     if (imgConfig.width === null && imgConfig.height === null) {
-      if (callback) {
-        callback(dataURI);
-        return;
-      }
+      callback(dataURI);
+      return;
     }
 
     var aspectRatio = function aspectRatio(imgW, imgH, maxW, maxH) {
       return Math.min(maxW / imgW, maxH / imgH);
     };
 
-    var newDataURI = '';
     var canvas = document.createElement('canvas');
     var ctx = canvas.getContext('2d');
     var img = new Image();
     img.src = dataURI;
 
     img.onload = function () {
-      var w = img.width;
-      var h = img.height;
+      var w = img.naturalWidth;
+      var h = img.naturalHeight;
       var sizer = aspectRatio(w, h, imgConfig.width, imgConfig.height);
       canvas.width = w * sizer;
       canvas.height = h * sizer;
       ctx.drawImage(img, 0, 0, w, h, 0, 0, w * sizer, h * sizer);
-      newDataURI = canvas.toDataURL();
-
-      if (callback) {
-        callback(newDataURI);
-      }
+      callback(canvas.toDataURL());
     };
-  };
+  }
   /**
    * DatURI to Blob
    * @param {string} dataURI
    */
 
-  var dataURItoBlob = function dataURItoBlob(dataURI) {
+  function dataURItoBlob(dataURI) {
     var byteString;
 
     if (dataURI.split(',')[0].indexOf('base64') >= 0) {
@@ -136,14 +129,14 @@
     return new Blob([ia], {
       type: mimeString
     });
-  };
+  }
   /**
    * Blob to DataURL
    * @param {Blob|File} blob 
    * @param {function} callback 
    */
 
-  var blobtoDataURL = function blobtoDataURL(blob, callback) {
+  function blobtoDataURL(blob, callback) {
     var fr = new FileReader();
 
     fr.onload = function (e) {
@@ -151,7 +144,7 @@
     };
 
     fr.readAsDataURL(blob);
-  };
+  }
 
   if ($__default['default'].fn) {
     // Bootstrap plugin - Modal
@@ -339,6 +332,7 @@
         },
         maxWidth: null,
         maxHeight: null,
+        imageMimeType: 'auto',
         // Upload
         uploadFile: null,
         action: null,
@@ -381,39 +375,62 @@
       var onOpen = settings.onOpen;
 
       settings.onOpen = function () {
+        if (settings.imageMimeType === 'auto') {
+          try {
+            // check is is base64 or not (throw exception)
+            atob(settings.src.split(',')[1]); // is base64
+
+            settings.imageMimeType = settings.src.split(':')[1].split(';')[0];
+          } catch (error) {
+            if (error instanceof DOMException) {
+              // is image
+              var mimetypeMap = {
+                jpg: 'image/jpeg',
+                jpeg: 'image/jpeg',
+                png: 'image/png',
+                gif: 'image/gif',
+                svg: 'image/svg+xml',
+                webp: 'image/webp'
+              };
+              var m = settings.src.match(/\.(\w+)$/);
+              settings.imageMimeType = mimetypeMap[m && m[1]];
+            }
+          } // If guess is not working, return the default mime-type
+
+
+          if (settings.imageMimeType === 'auto') {
+            settings.imageMimeType = 'image/jpeg';
+          }
+        }
+
         cropper = new Cropper(image.get(0), settings.cropper);
-        onOpen();
+        if (onOpen) onOpen();
       };
 
       var onOk = settings.onOk;
 
       settings.onOk = function () {
-        onOk();
-        var croppedDataURL = cropper.getCroppedCanvas().toDataURL();
+        if (onOk) onOk();
+        var croppedDataURL = cropper.getCroppedCanvas().toDataURL(settings.imageMimeType);
         cropper.destroy(); // Renew image size
 
         makeRatioImgDataURI(croppedDataURL, {
           width: settings.maxWidth,
           height: settings.maxHeight
         }, function (dataURI) {
-          // Cropper image event
-          settings.onCropper.call(_this2, dataURI, dataURItoBlob(dataURI), settings.uploadFile);
+          var blob = dataURItoBlob(dataURI); // Cropper image event
+
+          settings.onCropper.call(_this2, dataURI, blob, settings.uploadFile);
 
           if (typeof settings.action === 'string') {
             // Upload image to server
-            var blob = dataURItoBlob(dataURI);
             var formData = new FormData(); // Upload file
 
             formData.append(settings.fileName, blob); // Upload data
 
-            var dataKeys = Object.keys(settings.data);
-
-            if (dataKeys.length) {
-              dataKeys.forEach(function (key) {
-                formData.append(key, settings.data[key]);
-              });
-            } // Use ajax post to server
-
+            Object.keys(settings.data).forEach(function (key) {
+              formData.append(key, settings.data[key]);
+            }); // Use ajax post to server
 
             ajax(settings, formData);
           }
@@ -424,7 +441,7 @@
 
       settings.onCancel = function () {
         cropper.destroy();
-        onCancel();
+        if (onCancel) onCancel();
       };
 
       if (settings.src) {
@@ -481,16 +498,8 @@
             var maxSize = settings.uploadConfig.maxSize;
 
             if (file.size > maxSize) {
-              var maxSizeText;
-
-              if (maxSize < 1024) {
-                maxSizeText = "".concat(maxSize, " B");
-              } else if (maxSize >= Math.pow(1024, 1) && maxSize < Math.pow(1024, 2)) {
-                maxSizeText = "".concat(Math.floor(maxSize / Math.pow(1024, 1)), " KB");
-              } else if (maxSize >= Math.pow(1024, 2) && maxSize < Math.pow(1024, 3)) {
-                maxSizeText = "".concat(Math.floor(maxSize / Math.pow(1024, 2)), " MB");
-              }
-
+              var i = Math.floor(Math.log(maxSize) / Math.log(1024));
+              var maxSizeText = (maxSize / Math.pow(1024, i)).toFixed(2) * 1 + ' ' + ['B', 'kB', 'MB', 'GB', 'TB'][i];
               settings.onUploadError.call(_this2, "Uploaded file cannot be larger than ".concat(maxSizeText));
               return;
             }
