@@ -385,14 +385,8 @@ if ($.fn) {
            */
           const maxSize = settings.uploadConfig.maxSize
           if (file.size > maxSize) {
-            let maxSizeText
-            if (maxSize < 1024) {
-              maxSizeText = `${maxSize} B`
-            } else if (maxSize >= Math.pow(1024, 1) && maxSize < Math.pow(1024, 2)) {
-              maxSizeText = `${Math.floor(maxSize / Math.pow(1024, 1))} KB`
-            } else if (maxSize >= Math.pow(1024, 2) && maxSize < Math.pow(1024, 3)) {
-              maxSizeText = `${Math.floor(maxSize / Math.pow(1024, 2))} MB`
-            }
+            const i = Math.floor(Math.log(maxSize) / Math.log(1024))
+            const maxSizeText = (maxSize / Math.pow(1024, i) ).toFixed(2) * 1 + ' ' + ['B', 'kB', 'MB', 'GB', 'TB'][i]
             settings.onUploadError.call(this, `Uploaded file cannot be larger than ${maxSizeText}`)
             return
           }
