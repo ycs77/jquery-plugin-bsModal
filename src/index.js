@@ -289,9 +289,7 @@ if ($.fn) {
     settings.onOk = () => {
       onOk();
 
-      const croppedDataURL = cropper
-        .getCroppedCanvas()
-        .toDataURL("image/jpeg", 0.9);
+      const croppedDataURL = cropper.getCroppedCanvas().toDataURL("image/jpeg");
       cropper.destroy();
 
       // Renew image size
