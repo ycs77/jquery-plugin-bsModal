@@ -285,12 +285,12 @@ if ($.fn) {
     const onOpen = settings.onOpen
     settings.onOpen = () => {
       cropper = new Cropper(image.get(0), settings.cropper)
-      onOpen()
+      if (onOpen) onOpen()
     }
 
     const onOk = settings.onOk
     settings.onOk = () => {
-      onOk()
+      if (onOk) onOk()
 
       const croppedDataURL = cropper.getCroppedCanvas().toDataURL()
       cropper.destroy()
@@ -329,7 +329,7 @@ if ($.fn) {
     const onCancel = settings.onCancel
     settings.onCancel = () => {
       cropper.destroy()
-      onCancel()
+      if (onCancel) onCancel()
     }
 
     if (settings.src) {
