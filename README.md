@@ -450,3 +450,17 @@ function (imgDataURL, imgBlob, uploadFile) {
 ```
 
 Is cropper callback.
+
+## Sponsor
+
+If you think this package have helped you, can [Become a sponsor](https://www.patreon.com/ycs77) to support my work~ and can show your avatar on my open-source project README.
+
+---
+
+**Now there are no sponsors yet, [join it](https://www.patreon.com/ycs77).**
+
+---
+
+## License
+
+[MIT LICENSE](LICENSE.md)
